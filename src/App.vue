@@ -7,8 +7,8 @@
             v-for="movie in movies"
             v-bind:key="movie.id"
             v-bind:title="movie.title"
-            v-bind:rating="movie.rating"
-            v-bind:description="movie.description"
+            v-bind:rating="movie.vote_average"
+            v-bind:description="movie.overview"
             v-bind:director="movie.director" >
         </movie>
     </div>
@@ -17,7 +17,7 @@
 <script>
 import axios from 'axios';
 import Movie from "./components/Movie.vue";
-import { key } from './scripts/config';
+import { query } from './scripts/config';
 
 export default {
     name: "app",
@@ -28,18 +28,16 @@ export default {
 
     data() {
         return {
-            movies: [
-                { id: 1, title: 'Pulp Fiction', rating: 9.5, description: 'A greate film', director: 'Quentin Tarrintino' },
-                { id: 2, title: 'Casino', rating: 7.5, description: 'A violent film', director: 'Martin Scorcese' },
-                { id: 3, title: 'Platoon', rating: 8.5, description: 'A war film', director: 'Oliver Stone' }
-            ]
+            movies: []
         }
     },
 
     created() {
-        const query = `https://api.themoviedb.org/3/movie/upcoming?api_key=${key}&language=en-US&page=1`;
+
         axios(query)
-            .then(response => console.log(response.data.results))
+            .then(response => {
+                this.movies = response.data.results
+            })
             .catch(error => console.error(error))
     }
 };
