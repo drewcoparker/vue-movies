@@ -4,6 +4,7 @@
         <p>{{ description }}</p>
         <p>Directed by: {{ director }}</p>
         <p>Avg rating: {{ rating }}</p>
+        <p>Rated: {{ mpaa }}</p>
     </div>
 </template>
 
@@ -14,7 +15,8 @@ export default {
         title: String,
         rating: Number,
         description: String,
-        director: String
+        director: String,
+        mpaa: String
     }
 }
 </script>
